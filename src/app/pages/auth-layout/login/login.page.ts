@@ -1,28 +1,29 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { NgForm } from '@angular/forms';
+import { LoadingController } from '@ionic/angular';
+import { LoaderController } from 'src/app/shared/loaderctrl';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.page.html',
   styleUrls: ['./login.page.scss'],
 })
-export class LoginPage {
+export class LoginPage extends LoaderController {
 
   login: any = { username: '', password: '' };
   submitted = false;
 
   constructor(
-    public router: Router
-  ) { }
+    public router: Router,
+    public loadingController: LoadingController
+  ) {
+    super(loadingController);
+  }
 
-  onLogin(form: NgForm) {
+  async onLogin(form: NgForm) {
     this.submitted = true;
-
-    if (form.valid) {
-      //this.userData.login(this.login.username);
-      this.router.navigateByUrl('/app/tabs/schedule');
-    }
+    await this.showLoader('loading');
   }
 
   onSignup() {

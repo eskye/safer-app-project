@@ -8,12 +8,12 @@ const routes: Routes = [
     pathMatch: 'full'
   },
   {
-    path: 'tab',
-    loadChildren: () => import('./pages/tabs/tabs.module').then(m => m.TabsPageModule)
-  },
-  {
     path: 'account',
     loadChildren: () => import('./pages/auth-layout/auth-layout.module').then( m => m.AuthLayoutPageModule)
+  },
+  {
+    path: 'app',
+    loadChildren: () => import('./pages/app-layout/app-layout.module').then( m => m.AppLayoutPageModule)
   }
 ];
 @NgModule({
