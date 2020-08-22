@@ -14,6 +14,10 @@ const routes: Routes = [
   {
     path: 'app',
     loadChildren: () => import('./pages/app-layout/app-layout.module').then( m => m.AppLayoutPageModule)
+  },
+  {
+    path: 'creategroup',
+    loadChildren: () => import('./pages/modalPages/creategroup/creategroup.module').then( m => m.CreategroupPageModule)
   }
 ];
 @NgModule({
