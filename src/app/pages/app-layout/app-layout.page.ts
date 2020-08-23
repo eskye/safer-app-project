@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { AuthenticationService } from '@app/shared/services/authentication.service';
+import { NativeStorage } from '@ionic-native/native-storage/ngx';
 
 @Component({
   selector: 'app-app-layout',
@@ -45,9 +47,10 @@ export class AppLayoutPage implements OnInit {
     }
   ];
 
-  constructor() { }
-
+  constructor(private nativeStorage: NativeStorage, private authService: AuthenticationService) { }
+fullname: any;
   ngOnInit() {
+    this.fullname = this.authService.fullname;
   }
 
 }

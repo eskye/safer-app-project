@@ -119,10 +119,10 @@
 
 <ion-app>
   <ion-split-pane contentId="main-content">
-    <ion-menu contentId="main-content" type="overlay">
+    <ion-menu contentId="main-content">
       <ion-content>
         <ion-list id="inbox-list">
-          <ion-list-header>Hi John!</ion-list-header>
+          <ion-list-header>Hi {{fullname}} !</ion-list-header>
           <ion-note>hi@ionicframework.com</ion-note>
 
           <ion-menu-toggle auto-hide="false" *ngFor="let p of appPages; let i = index">
