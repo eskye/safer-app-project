@@ -2,8 +2,13 @@
 // `ng build --prod` replaces `environment.ts` with `environment.prod.ts`.
 // The list of file replacements can be found in `angular.json`.
 
+
+ const BASE = 'http://127.0.0.1:8000';
+// const BASE = 'https://saferapp-api.herokuapp.com';
 export const environment = {
-  production: false
+  production: false,
+  BASE,
+  BASE_URL: BASE + '/api/v1'
 };
 
 /*
