@@ -1,12 +1,12 @@
 import { IRootObject } from '@app/shared/core/interface/IRootObject';
 
 export interface IAccount extends IRootObject{
-  name: string;
+  firstname: string;
+  lastname: string;
   email: string;
-  phoneNumber: string;
+  phonenumber: string;
   password: string;
-  nickName: string;
-  type: string;
+  address: string;
 }
 
 export interface ILogin extends IRootObject {
@@ -16,6 +16,9 @@ export interface ILogin extends IRootObject {
 
 export interface IResetPassword extends IRootObject, IAccount {
   code: string;
+}
+export interface IOtp extends IRootObject {
+  otp: string;
 }
 
 export interface IUser {

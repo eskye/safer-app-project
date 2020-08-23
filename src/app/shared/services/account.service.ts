@@ -6,11 +6,11 @@
  import { ErrorHandler } from '@app-shared/core/Error/ErrorHandler';
 
  import {
-  IRootService,
-  IAccount,
-  ILogin,
-  ILoginResponse, IUser
-} from '@app-shared/core';
+    IRootService,
+    IAccount,
+    ILogin,
+    ILoginResponse, IUser, IOtp
+ } from '@app-shared/core';
 
  import { RootService } from '@app-shared/core/interface/RootService';
  import { routes } from '@app-shared/constant';
@@ -21,6 +21,7 @@
   login(body: ILogin): Observable<ApiResponse<ILoginResponse>>;
   forgotPassword(body): Observable<ApiResponse<string>>;
   resetPassword(body): Observable<ApiResponse<string>>;
+  verifyOtp(body: IOtp): Observable<ApiResponse<string>>;
 
 }
 
@@ -33,6 +34,11 @@ export class AccountService extends RootService<ApiResponse<any>>
   constructor(httpClient: HttpClient) {
     super(httpClient);
   }
+
+  verifyOtp(body: IOtp): Observable<ApiResponse<string>> {
+         return this.post(routes.VERIFYOTP, body)
+             .pipe(map(res => res as ApiResponse<string>), catchError(ErrorHandler.ErrorServerConnection));
+     }
 
    resetPassword(body: any): Observable<ApiResponse<string>> {
      return this.post(routes.RESETPASSWORD, body)

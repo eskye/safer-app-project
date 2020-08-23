@@ -11,7 +11,7 @@ export class AppLayoutPage implements OnInit {
   public selectedIndex = 0;
   public appPages = [
     {
-      title: 'Inbox',
+      title: 'Groups',
       url: '/sidemenu/Inbox',
       icon: 'mail'
     },
@@ -40,17 +40,15 @@ export class AppLayoutPage implements OnInit {
       url: '/sidemenu/Spam',
       icon: 'warning'
     },
-    {
-      title: 'Login',
-      url: '/sign-in',
-      icon: 'person'
-    }
+
   ];
 
   constructor(private nativeStorage: NativeStorage, private authService: AuthenticationService) { }
 fullname: any;
+  email: string;
   ngOnInit() {
     this.fullname = this.authService.fullname;
+    this.email = this.authService.email
   }
 
 }
