@@ -1,0 +1,39 @@
+
+
+<ion-content fullscreen="true">
+  <div class="login-logo">
+    <img src="assets/images/appicon.png" alt="Ionic logo">
+    <p>Enter the one time password sent to your email to activate your account</p>
+  </div>
+
+  <form #otpVerificationForm="ngForm" novalidate>
+
+    <ion-list>
+
+      <ion-item>
+        <ion-label position="stacked" color="primary">OTP(One Time Password)</ion-label>
+        <ion-input [(ngModel)]="otpmodel.otp" minlength="6" maxlength="6" name="password" type="password" #otp="ngModel" required>
+        </ion-input>
+      </ion-item>
+
+      <ion-text color="danger">
+        <p [hidden]="otp.valid || submitted == false" class="ion-padding-start">
+          OTP is required
+        </p>
+        <p *ngIf="otp.errors?.minlength || otp.errors?.maxlength" class="ion-padding-start">
+          OTP must be 6 characters long.
+        </p>
+      </ion-text>
+    </ion-list>
+
+    <ion-row>
+      <ion-col>
+        <ion-button (click)="onVerify(otpVerificationForm)" type="submit" expand="block">
+          Verify
+          <ion-icon slot="end" name="arrow-forward"></ion-icon>
+        </ion-button>
+      </ion-col>
+    </ion-row>
+  </form>
+
+</ion-content>

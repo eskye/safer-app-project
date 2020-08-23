@@ -9,6 +9,7 @@ export const routes = {
   SOCIALAUTH: `${BASEURL}/account/social-login`,
   FORGOTPASSWORD: `${BASEURL}/account/forgot-password`,
   RESETPASSWORD: `${BASEURL}/account/reset-password`,
+  VERIFYOTP: `${BASEURL}/account/verify-otp`,
   CHALLENGE: {
     CREATE: `${BASEURL}/challenge/create`,
     CONFIG: `${BASEURL}/challenge/attach`,

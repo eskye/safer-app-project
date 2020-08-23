@@ -16,6 +16,10 @@ const routes: Routes = [
       {
         path: 'signup',
         loadChildren: () => import('./signup/signup.module').then( m => m.SignupPageModule)
+      },
+      {
+        path: 'verify-otp',
+        loadChildren: () => import('./otp-verify/otp-verify.module').then( m => m.OtpVerifyPageModule)
       }
     ]
   },
@@ -23,6 +27,10 @@ const routes: Routes = [
     path: '',
     redirectTo: '/account/sign-in',
     pathMatch: 'full'
+  },
+  {
+    path: 'otp-verify',
+    loadChildren: () => import('./otp-verify/otp-verify.module').then( m => m.OtpVerifyPageModule)
   }
  
 ];
