@@ -4,8 +4,8 @@
 
 
  const BASE = 'http://127.0.0.1:8000';
-// const BASE = 'https://saferapp-api.herokuapp.com';
-export const environment = {
+  //const BASE = 'https://saferapp-api.herokuapp.com';
+ export const environment = {
   production: false,
   BASE,
   BASE_URL: BASE + '/api/v1'

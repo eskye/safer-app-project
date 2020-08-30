@@ -1,7 +1,7 @@
 import { IQueryOptions, IFilter } from '@app-shared/core/interface/IQueryOptions';
 import { IError } from '@app-shared/core/model/IError';
 import { IAlert } from '@app/shared/core/model/IAlert';
-import { INameAndId } from '@app/shared/core/model/ILevel';
+import { INameAndId } from '@app/shared/core/model/IGroup';
 
 
 export interface IComponentAction {

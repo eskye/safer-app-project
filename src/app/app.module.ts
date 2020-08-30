@@ -8,8 +8,11 @@ import { StatusBar } from '@ionic-native/status-bar/ngx';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { HttpClientModule } from '@angular/common/http';
-import { NativeStorage } from '@ionic-native/native-storage/ngx';
+import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
+import { IonicStorageModule } from '@ionic/storage';
+import { StorageProvider } from '@app/shared/services/StorageProvider';
+import {AuthInterceptor} from '@app/shared/interceptor/AuthInterceptor';
+
 
 @NgModule({
   declarations: [AppComponent],
@@ -17,14 +20,22 @@ import { NativeStorage } from '@ionic-native/native-storage/ngx';
   imports: [
       BrowserModule,
     IonicModule.forRoot(),
+      IonicStorageModule.forRoot({
+        name: '__mydb',
+        driverOrder: ['sqlite', 'indexeddb', 'websql', 'localstorage']
+      }),
     HttpClientModule,
     AppRoutingModule
   ],
   providers: [
     StatusBar,
     SplashScreen,
-      NativeStorage,
-    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
+    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true
+    }
   ],
   bootstrap: [AppComponent]
 })

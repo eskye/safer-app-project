@@ -1,47 +1,30 @@
 import { Component, OnInit } from '@angular/core';
-import { Config, ModalController, NavParams } from '@ionic/angular';
+import { Config, LoadingController, ModalController, NavParams, ToastController } from '@ionic/angular';
+import { IGroup } from '@app/shared/core/model/IGroup';
+import { GroupService } from '@app/shared/services/group.service';
+import { NgForm } from '@angular/forms';
+import { BaseComponent } from '@app/shared';
 
 @Component({
   selector: 'app-creategroup',
   templateUrl: './creategroup.page.html',
   styleUrls: ['./creategroup.page.scss'],
 })
-export class CreategroupPage  {
-
-  ios: boolean;
-
-  tracks: {name: string, icon: string, isChecked: boolean}[] = [];
-
-  constructor( 
-    private config: Config,
+export class CreategroupPage{
+  public group: any = {name: ''};
+  constructor(
     public modalCtrl: ModalController,
     public navParams: NavParams
-  ) { }
+  ) {
+  }
 
   ionViewWillEnter() {
-    this.ios = this.config.get('mode') === `ios`;
-
-    // passed in array of track names that should be excluded (unchecked)
-    const excludedTrackNames = this.navParams.get('excludedTracks');
-
   }
 
-  selectAll(check: boolean) {
-    // set all to checked or unchecked
-    this.tracks.forEach(track => {
-      track.isChecked = check;
-    });
+  getValue(value){
+    this.group.name = value;
   }
-
-  applyFilters() {
-    // Pass back a new array of track names to exclude
-    const excludedTrackNames = this.tracks.filter(c => !c.isChecked).map(c => c.name);
-    this.dismiss(excludedTrackNames);
-  }
-
-  dismiss(data?: any) {
-    // using the injected ModalController this page
-    // can "dismiss" itself and pass back data
-    this.modalCtrl.dismiss(data);
+  createGroup() {
+    this.modalCtrl.dismiss(this.group);
   }
 }

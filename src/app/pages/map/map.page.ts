@@ -31,7 +31,7 @@ export class MapPage {
     const mapEle = this.mapElement.nativeElement;
 
     map = new googleMaps.Map(mapEle, {
-      center: {"lat":1.4455, "lng":3.445},
+      center: {lat: 1.4455, lng: 3.445},
       zoom: 16,
       styles: style
     });
@@ -40,18 +40,18 @@ export class MapPage {
     });
 
     const marker = new googleMaps.Marker({
-      position: {"lat":1.4455, "lng":3.445},
+      position: {lat: 1.4455, lng: 3.445},
       map,
       title: 'Maker q'
     });
 
     marker.addListener('click', () => {
       infoWindow.open(map, marker);
-    }); 
+    });
 
     googleMaps.event.addListenerOnce(map, 'idle', () => {
       mapEle.classList.add('show-map');
-    }); 
+    });
 
     const observer = new MutationObserver((mutations) => {
       mutations.forEach((mutation) => {

@@ -31,10 +31,10 @@ export class LoginPage extends BaseComponent {
   async onLogin(form: NgForm) {
     if (form.valid){
       await this.showLoader('Loading' );
-      this.goToNav('/app/tab/tabs/group');
-      this.accountService.login(this.login).subscribe((res) => {
-        this.dataService.keepNativeData('token', res.data);
-        this.hideLoader();
+      this.accountService.login(this.login).subscribe(async (res) => {
+        this.dataService.keepData('token', res.data.token);
+       // await this.dataService.keepNativeData('token', res.data.token);
+        await this.hideLoader();
         this.goToNav('/app/tab/tabs/group');
       }, error => {
         this.showToast(error);
