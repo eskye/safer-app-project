@@ -1,9 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { Config, LoadingController, ModalController, NavParams, ToastController } from '@ionic/angular';
-import { IGroup } from '@app/shared/core/model/IGroup';
-import { GroupService } from '@app/shared/services/group.service';
-import { NgForm } from '@angular/forms';
-import { BaseComponent } from '@app/shared';
+import { Component } from '@angular/core';
+import { ModalController, NavParams } from '@ionic/angular';
 
 @Component({
   selector: 'app-creategroup',
@@ -19,6 +15,12 @@ export class CreategroupPage{
   }
 
   ionViewWillEnter() {
+    const group = this.navParams.get('group');
+    if (group) {
+      this.group = group;
+    }else{
+      this.group = {name: ''};
+    }
   }
 
   getValue(value){
