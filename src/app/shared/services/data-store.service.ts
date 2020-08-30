@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import * as crypto from 'crypto-js';
 import { SystemConstant } from '@app-shared/constant';
-import { NativeStorage } from '@ionic-native/native-storage/ngx';
+import { Storage } from '@ionic/storage';
+
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +13,7 @@ export class DataStoreService {
   private dataHolder: any = {};
   private item: any;
 
-  constructor(private nativeStorage: NativeStorage) { }
+  constructor(private storage: Storage) { }
 
   public encryptData(unEncryptedData) {
     return crypto.AES.encrypt(unEncryptedData, SystemConstant.RSA).toString();
@@ -28,12 +29,14 @@ export class DataStoreService {
   }
 
   public keepNativeData(key, data){
-    this.nativeStorage.setItem(key, data);
+  this.storage.ready().then(async () => {
+    await this.storage.set(key, data);
+   });
   }
 
   public removeAllPersistedData(): void {
     window.localStorage.clear();
-    this.nativeStorage.clear();
+    this.storage.clear();
   }
 
   public getPersistedData(key): any {
@@ -42,8 +45,8 @@ export class DataStoreService {
     return key === '_sstt23tken5_' ? item : this.decryptData(item);
   }
   public getNativePersistedData(key): any {
-    //let item: any;
-    this.nativeStorage.getItem(key).then(data => {
+    // let item: any;
+    this.storage.get(key).then(data => {
       console.log(data);
     });
   //  return key === '_sstt23tken5_' ? item : this.decryptData(item);
@@ -59,7 +62,7 @@ export class DataStoreService {
     }
 
     if (key === 'token') {
-      return this.persistData(key, sharedData);
+      return this.persistData('_sstt23tken5_', sharedData);
     }
 
     if (key === 'key') {
@@ -94,7 +97,6 @@ export class DataStoreService {
   }
 
   public getNativeData(key) {
-    debugger;
     if (key === 'role') {
       return this.getNativePersistedData('__jtoh67823_') ?
           this.getNativePersistedData('__jtoh67823_') : false;

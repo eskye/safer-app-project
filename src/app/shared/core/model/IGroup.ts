@@ -1,10 +1,9 @@
-export interface ILevel {
+
+export interface IGroup {
     name: string;
-    id: number;
 }
 
 export interface INameAndId {
   id: number;
   name: string;
-
 }

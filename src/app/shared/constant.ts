@@ -10,12 +10,9 @@ export const routes = {
   FORGOTPASSWORD: `${BASEURL}/account/forgot-password`,
   RESETPASSWORD: `${BASEURL}/account/reset-password`,
   VERIFYOTP: `${BASEURL}/account/verify-otp`,
-  CHALLENGE: {
-    CREATE: `${BASEURL}/challenge/create`,
-    CONFIG: `${BASEURL}/challenge/attach`,
-    LIST: `${BASEURL}/challenge/get-all`,
-    FORMDETAIL: `${BASEURL}/challenge/formdetail`,
-    DETAIL: `${BASEURL}/challenge/details`,
+  GROUP: {
+    CREATE: `${BASEURL}/group/create`,
+    LIST: `${BASEURL}/group/get-all`,
     EDIT: `${BASEURL}/challenge/edit`,
     DELETE: `${BASEURL}/challenge/delete`,
   },

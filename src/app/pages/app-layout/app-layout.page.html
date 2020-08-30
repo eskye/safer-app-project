@@ -122,7 +122,7 @@
     <ion-menu contentId="main-content">
       <ion-content>
         <ion-list id="inbox-list">
-          <ion-list-header>Hi {{fullname}} !</ion-list-header>
+          <ion-list-header>Welcome {{fullname}}</ion-list-header>
           <ion-note>{{email}}</ion-note>
 
           <ion-menu-toggle auto-hide="false" *ngFor="let p of appPages; let i = index">
@@ -131,6 +131,11 @@
               <ion-label>{{ p.title }}</ion-label>
             </ion-item>
           </ion-menu-toggle>
+          <ion-item-divider></ion-item-divider>
+          <ion-item (click)="logout()" lines="none" detail="false">
+            <ion-icon slot="start" ios="log-out-outline" md="log-out-sharp"></ion-icon>
+            <ion-label>Logout</ion-label>
+          </ion-item>
         </ion-list>
 
        

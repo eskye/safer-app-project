@@ -1,54 +1,47 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthenticationService } from '@app/shared/services/authentication.service';
-import { NativeStorage } from '@ionic-native/native-storage/ngx';
+import {DataStoreService} from '@app/shared/services/data-store.service';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-app-layout',
   templateUrl: './app-layout.page.html',
   styleUrls: ['./app-layout.page.scss'],
 })
+// tslint:disable-next-line:component-class-suffix
 export class AppLayoutPage implements OnInit {
   public selectedIndex = 0;
   public appPages = [
     {
       title: 'Groups',
-      url: '/sidemenu/Inbox',
-      icon: 'mail'
+      url: '/app/tab/tabs/group',
+      icon: 'people'
     },
     {
-      title: 'Outbox',
-      url: '/sidemenu/Outbox',
-      icon: 'paper-plane'
-    },
-    {
-      title: 'Favorites',
-      url: '/sidemenu/Favorites',
-      icon: 'heart'
-    },
-    {
-      title: 'Archived',
-      url: '/sidemenu/Archived',
-      icon: 'archive'
-    },
-    {
-      title: 'Trash',
+      title: 'Setting',
       url: '/sidemenu/Trash',
-      icon: 'trash'
-    },
-    {
-      title: 'Spam',
-      url: '/sidemenu/Spam',
-      icon: 'warning'
-    },
-
+      icon: 'settings'
+    }
   ];
-
-  constructor(private nativeStorage: NativeStorage, private authService: AuthenticationService) { }
-fullname: any;
+  fullname: any;
   email: string;
-  ngOnInit() {
-    this.fullname = this.authService.fullname;
-    this.email = this.authService.email
+  decodeToken: any;
+  constructor(private authService: AuthenticationService,
+              private dataStore: DataStoreService,
+              private router: Router) {
+  }
+
+ async ngOnInit() {
+     this.decodeToken = this.authService.decodeToken();
+     if (this.decodeToken) {
+       this.email = this.decodeToken.email;
+       this.fullname = this.decodeToken.firstname;
+     }
+  }
+
+  async logout(){
+    this.dataStore.removeAllPersistedData();
+    this.router.navigateByUrl('/account/sign-in');
   }
 
 }

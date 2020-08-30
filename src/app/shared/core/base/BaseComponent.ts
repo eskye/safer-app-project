@@ -14,7 +14,7 @@ import { IError } from '@app-shared/core/model/IError';
 import { IQueryOptions, IFilter } from '@app-shared/core/interface/IQueryOptions';
 import { IRootService } from '@app-shared/core/interface/IRootService';
 import { IAlert } from '@app/shared/core/model/IAlert';
-import { INameAndId } from '@app/shared/core/model/ILevel';
+import { INameAndId } from '@app/shared/core/model/IGroup';
 import { ApiResponse } from '@app/shared/core/interface/IRootObject';
 import { Observable } from 'rxjs';
 import { LoadingController, ToastController} from '@ionic/angular';

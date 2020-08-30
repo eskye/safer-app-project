@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
+import { AuthGuard } from '@app/shared/guards/auth.guard';
 
 const routes: Routes = [
   {
@@ -13,11 +14,8 @@ const routes: Routes = [
   },
   {
     path: 'app',
+    canActivate: [AuthGuard],
     loadChildren: () => import('./pages/app-layout/app-layout.module').then( m => m.AppLayoutPageModule)
-  },
-  {
-    path: 'creategroup',
-    loadChildren: () => import('./pages/modalPages/creategroup/creategroup.module').then( m => m.CreategroupPageModule)
   }
 ];
 @NgModule({
