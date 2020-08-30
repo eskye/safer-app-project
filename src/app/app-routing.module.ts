@@ -16,7 +16,12 @@ const routes: Routes = [
     path: 'app',
     canActivate: [AuthGuard],
     loadChildren: () => import('./pages/app-layout/app-layout.module').then( m => m.AppLayoutPageModule)
-  }
+  },
+  {
+    path: 'invite-user-group',
+    loadChildren: () => import('./pages/modalPages/invite-user-group/invite-user-group.module').then( m => m.InviteUserGroupPageModule)
+  },
+
 ];
 @NgModule({
   imports: [

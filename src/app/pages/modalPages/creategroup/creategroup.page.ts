@@ -19,10 +19,16 @@ export class CreategroupPage{
   }
 
   ionViewWillEnter() {
+    const group = this.navParams.get('group');
+    if (group) {
+      this.group = group;
+    }
   }
-
   getValue(value){
     this.group.name = value;
+  }
+  close(){
+    this.modalCtrl.dismiss();
   }
   createGroup() {
     this.modalCtrl.dismiss(this.group);

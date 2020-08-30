@@ -9,34 +9,17 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Tab 1</ion-title>
-    </ion-toolbar>
-  </ion-header> 
-
   <ion-content fullscreen>
     <ion-list>
       <ion-list-header>
         List of Groups
       </ion-list-header>
 
-      <ion-item *ngFor="let item of items">
-        <ion-avatar slot="start">
-          <img src="./avatar-finn.png">
-        </ion-avatar>
+      <ion-item *ngFor="let item of items" (click)="presentActionSheet(item)">
         <ion-label>
           <h2>{{item.name}}</h2>
-          <h3>4 members</h3>
-          <p>Created on 2020-10-11</p>
+          <p>{{item.created_at | date:'longDate'}}</p>
         </ion-label>
-        <ion-button slot="end" fill="clear">
-          <ion-icon name="create-outline" slot="icon-only"></ion-icon>
-        </ion-button>
-        <ion-button (click)="deleteConfirm()" slot="end" fill="clear">
-          <ion-icon name="trash" slot="icon-only"></ion-icon>
-        </ion-button>
       </ion-item>
 
     </ion-list>
