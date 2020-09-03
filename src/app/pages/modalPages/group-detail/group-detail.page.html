@@ -1,0 +1,19 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-title>Details</ion-title>
+        <ion-buttons slot="end">
+            <ion-button (click)="createGroup()">
+                <ion-icon name="close"></ion-icon>
+            </ion-button>
+        </ion-buttons>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <ion-item>
+        <ion-label>
+            <h2>{{group.name}}</h2>
+            <p>{{group.created_at}}</p>
+        </ion-label>
+    </ion-item>
+</ion-content>
