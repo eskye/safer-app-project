@@ -21,6 +21,10 @@ const routes: Routes = [
     path: 'invite-user-group',
     loadChildren: () => import('./pages/modalPages/invite-user-group/invite-user-group.module').then( m => m.InviteUserGroupPageModule)
   },
+  {
+    path: 'dashboard',
+    loadChildren: () => import('./pages/dashboard/dashboard.module').then( m => m.DashboardPageModule)
+  },
 
 ];
 @NgModule({

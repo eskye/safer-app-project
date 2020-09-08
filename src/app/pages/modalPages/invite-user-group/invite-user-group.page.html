@@ -2,7 +2,7 @@
   <ion-toolbar>
     <ion-title>Invite User To Group</ion-title>
     <ion-buttons slot="end">
-      <ion-button (click)="createGroup()">
+      <ion-button (click)="close()">
         <ion-icon name="close"></ion-icon>
       </ion-button>
     </ion-buttons>
@@ -17,6 +17,6 @@
     <ion-label position="floating">User Email</ion-label>
     <ion-input #input (input)="getValue(input.value)"></ion-input>
   </ion-item>
-  <ion-button  expand="full" (click)="createGroup()" color="primary" ><ion-icon name="share-outline" slot="start"></ion-icon>Invite</ion-button>
+  <ion-button  expand="full" (click)="sendInvite()" color="primary" ><ion-icon name="share-outline" slot="start"></ion-icon>Invite</ion-button>
 
 </ion-content>

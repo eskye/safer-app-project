@@ -1,0 +1,36 @@
+<ion-header [translucent]="true" >
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>
+      Home
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content fullscreen>
+  <ion-list>
+    <ion-list-header color="light">
+     Recent Activity
+    </ion-list-header>
+
+    <ion-item *ngFor="let item of items" >
+      <ion-label>
+        <h2>{{item.name}}</h2>
+        <p>{{item.created_at | date:'longDate'}}</p>
+      </ion-label>
+      <ion-button  slot="end"  fill="clear" (click)="acceptInvite(item)">
+        <ion-icon name="checkmark-circle-outline" slot="icon-only"></ion-icon>
+      </ion-button>
+    </ion-item>
+
+  </ion-list>
+  <ion-col>
+    <ion-text class="ion-text-center" *ngIf="items?.length == 0" color="danger">
+      <ion-img class="img-empty" src="assets/images/no-data.svg"></ion-img>
+      <h5>No recent activities</h5>
+    </ion-text >
+  </ion-col>
+
+</ion-content>

@@ -13,8 +13,11 @@ export const routes = {
   GROUP: {
     CREATE: `${BASEURL}/group/create`,
     LIST: `${BASEURL}/group/get-all`,
-    EDIT: `${BASEURL}/challenge/edit`,
-    DELETE: `${BASEURL}/challenge/delete`,
+    EDIT: `${BASEURL}/group/edit`,
+    DELETE: `${BASEURL}/group`,
+    INVITE: `${BASEURL}/group/invite`,
+    ACCEPT: `${BASEURL}/group/accept-invite`,
+    GETINVITES: `${BASEURL}/group/get-invites`
   },
   TASK: {
     CREATE: `${BASEURL}/task/create`,
