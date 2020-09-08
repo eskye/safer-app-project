@@ -17,9 +17,9 @@ export class CreategroupPage{
   ionViewWillEnter() {
     const group = this.navParams.get('group');
     if (group) {
-      this.group = group;  
+      this.group = group;
     }else{
-      this.group = {name: ''}; 
+      this.group = {name: ''};
     }
   }
   getValue(value){

@@ -9,6 +9,7 @@ import {ModalController, NavParams} from '@ionic/angular';
 export class InviteUserGroupPage  {
 
   public group: any = {name: ''};
+  public invite: any = {email: '', uid: ''};
   constructor(
       public modalCtrl: ModalController,
       public navParams: NavParams
@@ -20,9 +21,13 @@ export class InviteUserGroupPage  {
   }
 
   getValue(value){
-    this.group.name = value;
+    this.invite.email = value;
   }
-  createGroup() {
-    this.modalCtrl.dismiss(this.group);
+  close(){
+    this.modalCtrl.dismiss();
+  }
+  sendInvite() {
+    this.invite.uid = this.group.uid;
+    this.modalCtrl.dismiss(this.invite);
   }
 }
