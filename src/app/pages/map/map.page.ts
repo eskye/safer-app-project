@@ -1,37 +1,91 @@
-import { Component, ViewChild, Inject, ElementRef } from '@angular/core';
+import { Component, ViewChild, Inject, ElementRef, NgZone, DoCheck, OnInit, OnDestroy } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
-import { Platform } from '@ionic/angular';
+import {ModalController, Platform} from '@ionic/angular';
 import { darkStyle } from './map-dark-style';
+import { environment } from '@src/environments/environment';
+import { Geolocation } from '@ionic-native/geolocation/ngx';
+import {InviteUserGroupPage} from '@pages/modalPages/invite-user-group/invite-user-group.page';
 
 @Component({
   selector: 'app-map',
   templateUrl: 'map.page.html',
   styleUrls: ['map.page.scss']
 })
-export class MapPage {
+export class MapPage implements  OnInit, OnDestroy{
   @ViewChild('mapCanvas', { static: true }) mapElement: ElementRef;
+  private latitude: number;
+  private longitude: number;
   constructor(
-    @Inject(DOCUMENT) private doc: Document,
-    public platform: Platform
-  ) {}
+      @Inject(DOCUMENT) private doc: Document,
+      public platform: Platform,
+      public modalCtrl: ModalController,
+      private geolocation: Geolocation
+  ) {
+    this.initializeApp();
+  }
+
+  async ngOnInit() {
+   // await this.onChanges();
+  }
+
+  initializeApp(){
+    this.platform.ready().then(() => {
+      // window.removeEventListener('volumebuttonslistener')
+      window.addEventListener('volumebuttonslistener', async (e) => {
+        console.log('Button pressed: ' + e);
+        await this.getCurrentLocation();
+        const modal = await this.modalCtrl.create({
+          component: InviteUserGroupPage,
+          componentProps: {group: ''}
+        });
+      }, false);
+    });
+  }
+
+  // async onChanges() {
+  //   this.getLocation();
+  //   this.volumeEvent.subscribe( data => {
+  //     console.log('onchanges');
+  //     console.log(data);
+  //     if (!data) { return false; }
+  //     if (data.signal === 'volume-down'){
+  //       console.log('I am here');
+  //       this.getLocation();
+  //     }
+  //   });
+  //
+  // }
+
+ async getCurrentLocation(){
+    this.geolocation.getCurrentPosition().then(async (res) => {
+      console.log(res);
+      this.latitude = res.coords.latitude;
+      this.longitude = res.coords.longitude;
+      await this.mapHandler(res.coords.latitude, res.coords.longitude);
+    });
+  }
 
   async ngAfterViewInit() {
+    await this.getCurrentLocation();
+    await this.mapHandler(1.344, 1.444);
+  }
+
+  async mapHandler(latitude: number, longitude: number){
     const appEl = this.doc.querySelector('ion-app');
     let isDark = false;
     let style = [];
     if (appEl.classList.contains('dark-theme')) {
       style = darkStyle;
     }
-
     const googleMaps = await getGoogleMaps(
-      'AIzaSyB8pf6ZdFQj5qw7rc_HSGrhUwQKfIe9ICw'
+        environment.APIKEY
     );
 
     let map;
     const mapEle = this.mapElement.nativeElement;
 
     map = new googleMaps.Map(mapEle, {
-      center: {lat: 1.4455, lng: 3.445},
+      center: {lat: latitude, lng: longitude},
       zoom: 16,
       styles: style
     });
@@ -40,7 +94,7 @@ export class MapPage {
     });
 
     const marker = new googleMaps.Marker({
-      position: {lat: 1.4455, lng: 3.445},
+      position: {lat: latitude, lng: longitude},
       map,
       title: 'Maker q'
     });
@@ -69,6 +123,12 @@ export class MapPage {
     observer.observe(appEl, {
       attributes: true
     });
+  }
+  // ionViewDidLeave(){
+  //   window.removeEventListener('volumebuttonslistener', this.onVolumeButtonsListener, false);
+  // }
+  ngOnDestroy(){
+    window.removeEventListener('volumebuttonslistener', () => {}, false);
   }
 }
 

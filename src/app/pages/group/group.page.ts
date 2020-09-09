@@ -1,5 +1,13 @@
 import { Component } from '@angular/core';
-import { ActionSheetController, AlertController, IonRouterOutlet, LoadingController, ModalController, ToastController } from '@ionic/angular';
+import {
+  ActionSheetController,
+  AlertController,
+  IonRouterOutlet,
+  LoadingController,
+  ModalController,
+  Platform,
+  ToastController
+} from '@ionic/angular';
 import { Router } from '@angular/router';
 import { CreategroupPage } from '../modalPages/creategroup/creategroup.page';
 import { GroupService } from '@app/shared/services/group.service';
@@ -7,6 +15,9 @@ import { BaseComponent } from '@app/shared';
 import { IGroup } from '@app/shared/core/model/IGroup';
 import { GroupDetailPage } from '@pages/modalPages/group-detail/group-detail.page';
 import { InviteUserGroupPage } from '@pages/modalPages/invite-user-group/invite-user-group.page';
+import { FCM } from 'cordova-plugin-fcm-with-dependecy-updated/ionic/ngx';
+import { INotificationPayload } from 'cordova-plugin-fcm-with-dependecy-updated';
+import {AuthenticationService} from '@app/shared/services/authentication.service';
 
 @Component({
   selector: 'app-group',
@@ -21,6 +32,11 @@ export class GroupPage extends BaseComponent {
     uid: ''
   };
 
+
+  public hasPermission: boolean;
+  public token: string;
+  public pushPayload: INotificationPayload;
+
   constructor(public modalCtrl: ModalController,
               public router: Router,
               public alertCtrl: AlertController,
@@ -28,14 +44,31 @@ export class GroupPage extends BaseComponent {
               public toastCtrl: ToastController,
               public actionSheetController: ActionSheetController,
               public routerOutlet: IonRouterOutlet,
+              private platform: Platform,
+              private authService: AuthenticationService,
+              private fcm: FCM,
               private groupService: GroupService) {
     super(toastCtrl, router, null, loadCtrl, groupService);
+    this.setupFCM();
   }
 
   async ionViewDidEnter() {
     await this.init();
   }
 
+  private async setupFCM() {
+    await this.platform.ready();
+    console.log('FCM setup started');
+
+    console.log('Subscribing to new notifications');
+    this.fcm.onNotification().subscribe((payload) => {
+      this.pushPayload = payload;
+      console.log('onNotification received event with: ', payload);
+    });
+
+    this.pushPayload = await this.fcm.getInitialPushPayload();
+    console.log('getInitialPushPayload result: ', this.pushPayload);
+  }
   async presentActionSheet(item) {
     const actionSheet = await this.actionSheetController.create({
       header: 'Options',
@@ -128,6 +161,7 @@ export class GroupPage extends BaseComponent {
     });
     modal.onDidDismiss().then(async res => {
       await this.showLoader('Loading');
+      res.data.token = this.authService.fcmToken;
       this.groupService.create(res.data).subscribe(async (response) => {
         await this.hideLoader();
         await this.showToast('Group created successfully');

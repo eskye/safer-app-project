@@ -65,8 +65,8 @@ export class DataStoreService {
       return this.persistData('_sstt23tken5_', sharedData);
     }
 
-    if (key === 'key') {
-      return this.persistData('_sj45jmker23h_', sharedData);
+    if (key === 'fcmToken') {
+      return this.persistData('_112230994_', sharedData);
     }
 
 
@@ -87,8 +87,8 @@ export class DataStoreService {
     if (key === 'token') {
       return this.getPersistedData('_sstt23tken5_');
     }
-    if (key === 'key') {
-      return this.getPersistedData('_sj45jmker23h_');
+    if (key === 'fcmToken') {
+      return this.getPersistedData('_112230994_');
     }
     if (key === 'page') {
       return this.getPersistedData('_form_tracker__');
