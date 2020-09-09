@@ -35,6 +35,9 @@ export class AuthenticationService {
   decodeToken(){
      return this.helper.decodeToken(this.tokenLocal);
   }
+  get fcmToken(){
+       return this.dataService.getData('fcmToken');
+  }
   // get role(): string{
   //   if (!this.decodeToken) { return null; }
   //   return this.decodeToken.role;

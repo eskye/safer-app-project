@@ -8,10 +8,12 @@ import { StatusBar } from '@ionic-native/status-bar/ngx';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { IonicStorageModule } from '@ionic/storage';
-import { StorageProvider } from '@app/shared/services/StorageProvider';
-import {AuthInterceptor} from '@app/shared/interceptor/AuthInterceptor';
+import { AuthInterceptor } from '@app/shared/interceptor/AuthInterceptor';
+import { NativeGeocoder } from '@ionic-native/native-geocoder/ngx';
+import { Geolocation } from '@ionic-native/geolocation/ngx';
+import { FCM } from 'cordova-plugin-fcm-with-dependecy-updated/ionic/ngx';
 
 
 @NgModule({
@@ -30,6 +32,9 @@ import {AuthInterceptor} from '@app/shared/interceptor/AuthInterceptor';
   providers: [
     StatusBar,
     SplashScreen,
+    Geolocation,
+    NativeGeocoder,
+      FCM,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     {
       provide: HTTP_INTERCEPTORS,

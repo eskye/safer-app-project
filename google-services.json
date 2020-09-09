@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "801658343486",
+    "firebase_url": "https://kubernetes-codelab-222711.firebaseio.com",
+    "project_id": "kubernetes-codelab-222711",
+    "storage_bucket": "kubernetes-codelab-222711.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:801658343486:android:335ebd944fe9b187a8016f",
+        "android_client_info": {
+          "package_name": "com.eskye.saferapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "801658343486-2f2ns3argnq2fippgbckis1v1d3tbar1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDncneBke4dVkYsk2N6UXg-a4P8a1HM7tc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "801658343486-2f2ns3argnq2fippgbckis1v1d3tbar1.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

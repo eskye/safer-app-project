@@ -3,6 +3,7 @@ import { BaseComponent } from '@app/shared';
 import { ActionSheetController, AlertController, IonRouterOutlet, LoadingController, ModalController, ToastController } from '@ionic/angular';
 import { Router } from '@angular/router';
 import { GroupService } from '@app/shared/services/group.service';
+import { AuthenticationService } from '@app/shared/services/authentication.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -17,6 +18,7 @@ export class DashboardPage  extends BaseComponent {
               public loadCtrl: LoadingController,
               public toastCtrl: ToastController,
               public actionSheetController: ActionSheetController,
+              private authService: AuthenticationService,
               private groupService: GroupService) {
     super(toastCtrl, router, null, loadCtrl, groupService);
   }
@@ -54,7 +56,7 @@ export class DashboardPage  extends BaseComponent {
           handler: async () => {
             if (!item) { return false; }
             await this.showLoader('Loading...');
-            const body = {uid: item.uid};
+            const body = {uid: item.uid, token: this.authService.fcmToken};
             this.groupService.acceptInvite(body).subscribe(async res => {
               await this.hideLoader();
               await this.showToast(res.data);
