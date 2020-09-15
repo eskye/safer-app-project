@@ -11,8 +11,8 @@
 
 <ion-content fullscreen>
   <ion-list>
-    <ion-list-header color="light">
-     Recent Activity
+    <ion-list-header color="light" *ngIf="items?.length > 0">
+     Recent Activities
     </ion-list-header>
 
     <ion-item *ngFor="let item of items" >
@@ -26,8 +26,25 @@
     </ion-item>
 
   </ion-list>
+  <ion-list>
+    <ion-list-header color="light" *ngIf="emergencies?.length > 0">
+      Recent Emergency Notifications <ion-badge color="danger">{{emergencies?.length}}</ion-badge>
+    </ion-list-header>
+
+    <ion-item *ngFor="let emergency of emergencies" (click)="showMap(emergency)">
+      <ion-label>
+        <h2>{{emergency.title}}</h2>
+        <p>
+          Address: {{emergency.address}} <br/>
+         Latitude: {{emergency.latitude}} <br/>
+         Longitude: {{emergency.longitude}}
+        </p>
+      </ion-label>
+    </ion-item>
+
+  </ion-list>
   <ion-col>
-    <ion-text class="ion-text-center" *ngIf="items?.length == 0" color="danger">
+    <ion-text class="ion-text-center" *ngIf="items?.length == 0 && emergencies?.length == 0" color="danger">
       <ion-img class="img-empty" src="assets/images/no-data.svg"></ion-img>
       <h5>No recent activities</h5>
     </ion-text >

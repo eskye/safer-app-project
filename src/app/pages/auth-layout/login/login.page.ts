@@ -29,11 +29,11 @@ export class LoginPage extends BaseComponent {
   }
 
   async onLogin(form: NgForm) {
-    if (form.valid){
-      await this.showLoader('Loading' );
+    if (form.valid) {
+      await this.showLoader('Loading');
       this.accountService.login(this.login).subscribe(async (res) => {
         this.dataService.keepData('token', res.data.token);
-       // await this.dataService.keepNativeData('token', res.data.token);
+        // await this.dataService.keepNativeData('token', res.data.token);
         await this.hideLoader();
         this.goToNav('/app/tab/tabs/group');
       }, error => {
