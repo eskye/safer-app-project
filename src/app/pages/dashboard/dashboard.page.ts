@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { BaseComponent } from '@app/shared';
-import { ActionSheetController, AlertController, IonRouterOutlet, LoadingController, ModalController, ToastController } from '@ionic/angular';
+import { ActionSheetController, AlertController, LoadingController, ModalController, ToastController } from '@ionic/angular';
 import { Router } from '@angular/router';
 import { GroupService } from '@app/shared/services/group.service';
 import { AuthenticationService } from '@app/shared/services/authentication.service';
@@ -54,7 +54,14 @@ emergencies: IEmergency[];
     return this.emergencies;
   }
 
-  showMap(item) {
+  showMap(item) { 
+    const records = this.dataStoreService.getLocalData('emergencies');
+    const getEmergencies = JSON.parse(records) as IEmergency[];
+    if (!isNullOrUndefined(getEmergencies)){  
+      const existingEmergencyIndex = getEmergencies.findIndex(x => x.emergency_id === item.emergency_id);
+      getEmergencies.splice(existingEmergencyIndex, 1);
+      this.dataStoreService.setLocalData('emergencies', JSON.stringify(getEmergencies));
+    } 
     this.router.navigate(['/app/tab/tabs/map'], { queryParams: { latitude: item.latitude, 'longitude': item.longitude, 'address':item.address} });
   }
 

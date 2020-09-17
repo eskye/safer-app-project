@@ -70,6 +70,6 @@ export class LocationService {
                 data += obj[val] + ', ';
             }
         }
-        return data.slice(1, -2);
+        return data.slice(3, -2);
     }
 }

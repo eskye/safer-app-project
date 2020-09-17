@@ -128,6 +128,7 @@ export class AppLayoutPage extends BaseComponent implements OnInit, OnDestroy {
 
   async sendEmergency(emergency) {
     emergency.address = this.address;
+    if(!this.address) return false;
     await this.showLoader('Activating emergency signal');
     this.emergencyService.create(emergency).subscribe(async _res => {
       await this.showToast('emergency activated');

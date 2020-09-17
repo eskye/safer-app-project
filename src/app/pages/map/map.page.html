@@ -18,15 +18,19 @@
           [latitude]="latitude"
          [longitude]="longitude">
            <agm-info-window>
-             <strong>{{address}}</strong>
+             <strong>
+               {{address}}
+              </strong>
            </agm-info-window>
          </agm-marker>
-         
+
     <agm-marker *ngFor="let m of markers"
      [latitude]="m.latitude"
     [longitude]="m.longitude">
       <agm-info-window>
-        <strong>{{m.address}}</strong>
+        <strong>
+          {{m.address}}
+        </strong>
       </agm-info-window>
     </agm-marker>
   </agm-map>

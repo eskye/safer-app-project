@@ -20,7 +20,7 @@ export class MapPage implements AfterViewInit{
    height = 0;
    latitude = 0;
    longitude = 0;
-   zoom: number = 20;
+   zoom: number = 15;
    markers: Marker[] = [];
   constructor(
       @Inject(DOCUMENT) private doc: Document,
@@ -40,8 +40,8 @@ export class MapPage implements AfterViewInit{
          this.latitude = res.coords.latitude;
          this.longitude = res.coords.longitude;
          this.getAddress(res.coords.latitude, res.coords.longitude);
-        this.activatedRoute.queryParams.subscribe(res => {
-          this.addMarker(res.latitude, res.longitude, res.address);
+        this.activatedRoute.queryParams.subscribe(res => { 
+          this.addMarker(res.latitude, res.longitude, res.address); 
       });
      }).catch(err => {
        console.error(err);
