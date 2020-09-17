@@ -17,7 +17,7 @@ import { GroupDetailPage } from '@pages/modalPages/group-detail/group-detail.pag
 import { InviteUserGroupPage } from '@pages/modalPages/invite-user-group/invite-user-group.page';
 import { FCM } from 'cordova-plugin-fcm-with-dependecy-updated/ionic/ngx';
 import { INotificationPayload } from 'cordova-plugin-fcm-with-dependecy-updated';
-import {AuthenticationService} from '@app/shared/services/authentication.service';
+import { AuthenticationService } from '@app/shared/services/authentication.service';
 
 @Component({
   selector: 'app-group',
@@ -49,26 +49,12 @@ export class GroupPage extends BaseComponent {
               private fcm: FCM,
               private groupService: GroupService) {
     super(toastCtrl, router, null, loadCtrl, groupService);
-    this.setupFCM();
   }
 
   async ionViewDidEnter() {
     await this.init();
   }
 
-  private async setupFCM() {
-    await this.platform.ready();
-    console.log('FCM setup started');
-
-    console.log('Subscribing to new notifications');
-    this.fcm.onNotification().subscribe((payload) => {
-      this.pushPayload = payload;
-      console.log('onNotification received event with: ', payload);
-    });
-
-    this.pushPayload = await this.fcm.getInitialPushPayload();
-    console.log('getInitialPushPayload result: ', this.pushPayload);
-  }
   async presentActionSheet(item) {
     const actionSheet = await this.actionSheetController.create({
       header: 'Options',
@@ -82,7 +68,6 @@ export class GroupPage extends BaseComponent {
             componentProps: {group: item}
           });
           modal.onDidDismiss().then(async res => {
-            console.log(res);
             if (res.data){
               await this.showLoader('Loading');
               this.groupService.edit(res.data).subscribe(async (response) => {
@@ -160,6 +145,7 @@ export class GroupPage extends BaseComponent {
       component: CreategroupPage
     });
     modal.onDidDismiss().then(async res => {
+      if (!res.data) { return false; }
       await this.showLoader('Loading');
       res.data.token = this.authService.fcmToken;
       this.groupService.create(res.data).subscribe(async (response) => {

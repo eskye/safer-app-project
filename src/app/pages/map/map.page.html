@@ -8,5 +8,30 @@
 </ion-header>
 
 <ion-content>
-  <div #mapCanvas class="map-canvas"></div>
+  <agm-map
+          [style.height.px]="height"
+          [latitude]="latitude"
+          [zoom]="zoom"
+          [disableDefaultUI]="false"
+          [longitude]="longitude">
+          <agm-marker 
+          [latitude]="latitude"
+         [longitude]="longitude">
+           <agm-info-window>
+             <strong>
+               {{address}}
+              </strong>
+           </agm-info-window>
+         </agm-marker>
+
+    <agm-marker *ngFor="let m of markers"
+     [latitude]="m.latitude"
+    [longitude]="m.longitude">
+      <agm-info-window>
+        <strong>
+          {{m.address}}
+        </strong>
+      </agm-info-window>
+    </agm-marker>
+  </agm-map>
 </ion-content>

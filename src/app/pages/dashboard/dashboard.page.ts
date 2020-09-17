@@ -1,9 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { BaseComponent } from '@app/shared';
-import { ActionSheetController, AlertController, IonRouterOutlet, LoadingController, ModalController, ToastController } from '@ionic/angular';
+import { ActionSheetController, AlertController, LoadingController, ModalController, ToastController } from '@ionic/angular';
 import { Router } from '@angular/router';
 import { GroupService } from '@app/shared/services/group.service';
 import { AuthenticationService } from '@app/shared/services/authentication.service';
+import { IEmergency } from '@app/shared/core/model/IEmergency';
+import { DataStoreService } from '@app/shared/services/data-store.service';
+import { isNullOrUndefined } from 'util';
 
 @Component({
   selector: 'app-dashboard',
@@ -11,7 +14,7 @@ import { AuthenticationService } from '@app/shared/services/authentication.servi
   styleUrls: ['./dashboard.page.scss'],
 })
 export class DashboardPage  extends BaseComponent {
-
+emergencies: IEmergency[];
   constructor(public modalCtrl: ModalController,
               public router: Router,
               public alertCtrl: AlertController,
@@ -19,12 +22,14 @@ export class DashboardPage  extends BaseComponent {
               public toastCtrl: ToastController,
               public actionSheetController: ActionSheetController,
               private authService: AuthenticationService,
+              private dataStoreService: DataStoreService,
               private groupService: GroupService) {
     super(toastCtrl, router, null, loadCtrl, groupService);
   }
 
   async ionViewDidEnter() {
     await this.init();
+    this.getNotifications();
   }
 
   async init() {
@@ -36,6 +41,28 @@ export class DashboardPage  extends BaseComponent {
       this.hideLoader();
       this.showToast(error);
     });
+  }
+
+  getNotifications(): IEmergency[]{
+    const rawData = this.dataStoreService.getLocalData('emergencies');
+    if (isNullOrUndefined(rawData)){
+      return [];
+    }
+    const unreadData = JSON.parse(rawData) as IEmergency[];
+    if (!unreadData) { return []; }
+    this.emergencies = unreadData.filter(x => !x.isRead);
+    return this.emergencies;
+  }
+
+  showMap(item) { 
+    const records = this.dataStoreService.getLocalData('emergencies');
+    const getEmergencies = JSON.parse(records) as IEmergency[];
+    if (!isNullOrUndefined(getEmergencies)){  
+      const existingEmergencyIndex = getEmergencies.findIndex(x => x.emergency_id === item.emergency_id);
+      getEmergencies.splice(existingEmergencyIndex, 1);
+      this.dataStoreService.setLocalData('emergencies', JSON.stringify(getEmergencies));
+    } 
+    this.router.navigate(['/app/tab/tabs/map'], { queryParams: { latitude: item.latitude, 'longitude': item.longitude, 'address':item.address} });
   }
 
   async acceptInvite(item: any) {

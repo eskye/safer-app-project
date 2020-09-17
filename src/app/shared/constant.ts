@@ -19,6 +19,9 @@ export const routes = {
     ACCEPT: `${BASEURL}/group/accept-invite`,
     GETINVITES: `${BASEURL}/group/get-invites`
   },
+  EMERGENCY: {
+    SEND: `${BASEURL}/emergency/send`
+  },
   TASK: {
     CREATE: `${BASEURL}/task/create`,
     LIST: `${BASEURL}/task/list`,

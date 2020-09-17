@@ -14,6 +14,12 @@ import { AuthInterceptor } from '@app/shared/interceptor/AuthInterceptor';
 import { NativeGeocoder } from '@ionic-native/native-geocoder/ngx';
 import { Geolocation } from '@ionic-native/geolocation/ngx';
 import { FCM } from 'cordova-plugin-fcm-with-dependecy-updated/ionic/ngx';
+import { LocationService } from '@app/shared/services/location.service';
+import { Vibration } from '@ionic-native/vibration/ngx';
+import { NativeAudio } from '@ionic-native/native-audio/ngx';
+import { AudioService } from '@app/shared/services/audio.service';
+import { AgmCoreModule } from '@agm/core';
+import {environment} from '@src/environments/environment';
 
 
 @NgModule({
@@ -27,6 +33,11 @@ import { FCM } from 'cordova-plugin-fcm-with-dependecy-updated/ionic/ngx';
         driverOrder: ['sqlite', 'indexeddb', 'websql', 'localstorage']
       }),
     HttpClientModule,
+    AgmCoreModule.forRoot({
+      // please get your own API key here:
+      // https://developers.google.com/maps/documentation/javascript/get-api-key?hl=en
+      apiKey: environment.APIKEY
+    }),
     AppRoutingModule
   ],
   providers: [
@@ -34,7 +45,11 @@ import { FCM } from 'cordova-plugin-fcm-with-dependecy-updated/ionic/ngx';
     SplashScreen,
     Geolocation,
     NativeGeocoder,
+      Vibration,
+      NativeAudio,
       FCM,
+      LocationService,
+      AudioService,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     {
       provide: HTTP_INTERCEPTORS,

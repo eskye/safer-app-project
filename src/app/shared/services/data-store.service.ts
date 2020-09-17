@@ -68,14 +68,19 @@ export class DataStoreService {
     if (key === 'fcmToken') {
       return this.persistData('_112230994_', sharedData);
     }
-
-
-    if (key === 'page') {
-      return this.persistData('_form_tracker__', sharedData);
+    if (key === 'emergencies') {
+      return this.persistData('_emergency_tracker__', sharedData);
     }
 
 
     this.dataHolder[key] = sharedData;
+  }
+  public getLocalData(key){
+    return window.localStorage.getItem(key);
+  }
+
+  public setLocalData(key, data){
+    return window.localStorage.setItem(key, data);
   }
 
   public getData(key) {
@@ -90,8 +95,8 @@ export class DataStoreService {
     if (key === 'fcmToken') {
       return this.getPersistedData('_112230994_');
     }
-    if (key === 'page') {
-      return this.getPersistedData('_form_tracker__');
+    if (key === 'emergencies') {
+      return this.getPersistedData('_emergency_tracker__');
     }
     return key ? this.dataHolder[key] : this.dataHolder;
   }
